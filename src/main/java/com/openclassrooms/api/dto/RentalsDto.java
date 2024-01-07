@@ -12,7 +12,6 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RentalsDto {
-
     private int id;
     private String name;
     private int surface;

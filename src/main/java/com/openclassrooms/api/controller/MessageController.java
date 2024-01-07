@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 
+/**
+ * Controller class for handling messages.
+ */
 @RestController
 public class MessageController {
     @Autowired
@@ -24,6 +27,12 @@ public class MessageController {
     @Autowired
     private MessageService messageService;
 
+    /**
+     * Endpoint for posting a message.
+     *
+     * @param postMessage The request containing message details.
+     * @return The posted message.
+     */
     @PostMapping(value = "api/messages")
     public Message postMessage(@RequestBody PostMessage postMessage) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

@@ -17,6 +17,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 
+/**
+ * This RestController class allow user authentication, login and registration
+ * @author Kyrian ANIECOLE
+ */
 @RestController
 public class LoginController {
 
@@ -25,10 +29,27 @@ public class LoginController {
 
     public JWTService jwtService;
 
+
+    /**
+     * Constructor for the LoginController
+     *
+     * @param jwtService JWTService is being used for the token generation.
+     * @author Kyrian ANIECOLE
+     */
     public LoginController (JWTService jwtService) {
         this.jwtService = jwtService;
     }
 
+
+    /**
+     * This endpoint allow the obtention of a JWT token through the user credentials
+     *
+     * @param loginRequest    The login request containing user credentials.
+     * @param authentication  The authentication object.
+     * @return                A ResponseEntity containing the JWT token.
+     * @throws JsonProcessingException If there's an issue processing JSON.
+     * @author Kyrian ANIECOLE
+     */
     @PostMapping(value = "/api/auth/login")
     public ResponseEntity<String> getToken(@RequestBody LoginUser loginRequest, Authentication authentication) throws JsonProcessingException {
         userService.findByMailAndPassword(loginRequest.getEmail(), loginRequest.getPassword());
@@ -44,12 +65,29 @@ public class LoginController {
         return ResponseEntity.ok(objectMapper.writeValueAsString(tokenRespons));
     }
 
+
+    /**
+     * This endpoint retrieve the current user that is has been authenticated
+     *
+     * @return The UserDto representing the authenticated user
+     * @author Kyrian ANIECOLE
+     */
     @GetMapping(value = "api/auth/me")
     public UserDto createUserMe() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return userService.findByMail(authentication.getName());
     }
 
+
+    /**
+     * This endpoint allows the registration af a new user
+     *
+     * @param userDto          The UserDto containing user registration informations
+     * @param authentication   The authentication object
+     * @return                 A ResponseEntity containing the JWT token
+     * @throws JsonProcessingException If there's an issue processing JSON
+     * @author Kyrian ANIECOLE
+     */
     @PostMapping(value = "api/auth/register")
     public ResponseEntity<String> createUser(@RequestBody UserDto userDto, Authentication authentication) throws JsonProcessingException {
         userService.createUsers(userDto);

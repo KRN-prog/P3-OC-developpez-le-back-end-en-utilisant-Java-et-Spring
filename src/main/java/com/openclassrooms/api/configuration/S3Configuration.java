@@ -12,6 +12,10 @@ import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
 
+/**
+ * This class is a configuration class that create and configure an Amazon S3 client
+ * @author Kyrian ANIECOLE
+ */
 @Configuration
 public class S3Configuration {
 
@@ -28,21 +32,18 @@ public class S3Configuration {
     private String bucketName;
 
 
+    /**
+     * This class creates and configures an instance Amazon S3 using the AWS SDK
+     *
+     * @return An instance of {@link AmazonS3}.
+     * @author Kyrian ANIECOLE
+     */
     @Bean
     public AmazonS3 getS3Client() {
         final AWSCredentials credentials = new BasicAWSCredentials(accessKey, secretKey);
         return AmazonS3ClientBuilder.standard()
                 .withCredentials(new AWSStaticCredentialsProvider(credentials))
                 .withRegion(region)
-                .build();
-    }
-
-
-    @Bean
-    public S3Client s3Client() {
-        return S3Client.builder()
-                .region(Region.of(region))
-                .credentialsProvider(() -> AwsBasicCredentials.create(accessKey, secretKey))
                 .build();
     }
 }

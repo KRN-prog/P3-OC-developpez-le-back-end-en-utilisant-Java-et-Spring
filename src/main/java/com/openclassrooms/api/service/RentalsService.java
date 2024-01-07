@@ -15,6 +15,10 @@ import java.util.stream.Collectors;
 
 import static java.lang.Integer.parseInt;
 
+/**
+ * This service class allows you to handle rental operations (get all, update, create)
+ * @author Kyrian ANIECOLE
+ */
 @Service
 public class RentalsService {
 
@@ -24,6 +28,13 @@ public class RentalsService {
     @Autowired
     private S3Service s3Service;
 
+
+    /**
+     * This class retrieve list of all rentals
+     *
+     * @return A list of RentalsDto representing all rentals
+     * @author Kyrian ANIECOLE
+     */
     public List<RentalsDto> getAllRentals() {
         List<Rentals> rentals = rentalRepository.findAll();
 
@@ -33,12 +44,28 @@ public class RentalsService {
     }
 
 
+    /**
+     * This class retrieve a rental by its id
+     *
+     * @param rentalId The ID of the rental to retrieve
+     * @return A RentalsDto representing the requested rental
+     * @author Kyrian ANIECOLE
+     */
     public RentalsDto getRentalsDtoById(int rentalId) {
         Rentals rentals = rentalRepository.findById(rentalId).get();
 
         return RentalMapper.mapToRentalsDto(rentals);
     }
 
+
+    /**
+     * This class update a rental by its id
+     *
+     * @param rentalId  The ID of the rental to update
+     * @param bodyForm  The updated rental information
+     * @return The updated Rentals object
+     * @author Kyrian ANIECOLE
+     */
     public Rentals rentalUpdate(int rentalId, Map<String, String> bodyForm) {
         Rentals rental = rentalRepository.findById(rentalId).get();
 
@@ -50,6 +77,16 @@ public class RentalsService {
         return rentalRepository.save(rental);
     }
 
+
+    /**
+     * This class allows you to create a new rental
+     *
+     * @param createRentalRequest The request containing rental details
+     * @param file                The rental picture file
+     * @param ownerId             The ID of the owner of the rental
+     * @return A RentalsDto representing the created rental
+     * @author Kyrian ANIECOLE
+     */
     public RentalsDto createRentals(CreateRentalRequest createRentalRequest, MultipartFile file, int ownerId) {
         String uploadeImage = s3Service.uploadFile(file);
 

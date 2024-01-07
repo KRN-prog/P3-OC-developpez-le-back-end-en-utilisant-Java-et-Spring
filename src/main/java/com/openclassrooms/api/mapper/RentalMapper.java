@@ -17,18 +17,4 @@ public class RentalMapper {
                 rentals.getUpdatedAt()
         );
     }
-
-    public static Rentals mapToRentals(RentalsDto rentalsDto) {
-        return new Rentals(
-                rentalsDto.getId(),
-                rentalsDto.getName(),
-                rentalsDto.getSurface(),
-                rentalsDto.getPrice(),
-                rentalsDto.getPicture(),
-                rentalsDto.getDescription(),
-                rentalsDto.getOwnerId(),
-                rentalsDto.getCreatedAt(),
-                rentalsDto.getUpdatedAt()
-        );
-    }
 }
