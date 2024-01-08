@@ -21,3 +21,6 @@
 5/- Open a new query console by double clicking on 'api', then query console.
 
 6/- In your query console past it the SQL script available in `ressources/sql/script.sql`
+
+### Swagger URL
+http://localhost:3001/swagger-ui.html
