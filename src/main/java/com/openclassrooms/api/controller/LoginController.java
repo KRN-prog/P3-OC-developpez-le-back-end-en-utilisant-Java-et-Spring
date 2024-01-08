@@ -72,7 +72,7 @@ public class LoginController {
      * @return The UserDto representing the authenticated user
      * @author Kyrian ANIECOLE
      */
-    @GetMapping(value = "api/auth/me")
+    @GetMapping(value = "/api/auth/me")
     public UserDto createUserMe() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return userService.findByMail(authentication.getName());
@@ -88,7 +88,7 @@ public class LoginController {
      * @throws JsonProcessingException If there's an issue processing JSON
      * @author Kyrian ANIECOLE
      */
-    @PostMapping(value = "api/auth/register")
+    @PostMapping(value = "/api/auth/register")
     public ResponseEntity<String> createUser(@RequestBody UserDto userDto, Authentication authentication) throws JsonProcessingException {
         userService.createUsers(userDto);
 

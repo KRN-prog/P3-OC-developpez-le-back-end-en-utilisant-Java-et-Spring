@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -23,6 +24,7 @@ import javax.crypto.spec.SecretKeySpec;
  * @author Kyrian ANIECOLE
  */
 @Configuration
+@EnableWebSecurity
 public class SpringSecurityConfig {
 
     private String jwtKey = "bEXocErmKBCQVKanPjIJ6Ojpoiuytrezamlkjhgfdsq";
@@ -42,7 +44,8 @@ public class SpringSecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeRequests()
-                    .antMatchers("/api/user/{userId}", "/api/rentals", "/api/rentals/{rentalId}", "/api/auth/register", "/api/auth/login").permitAll()
+                    .antMatchers("/swagger-ui.html", "/v2/**", "/webjars/**", "/swagger-resources/**").permitAll()
+                    .antMatchers("/", "/csrf", "/api/user/{userId}", "/api/rentals", "/api/rentals/{rentalId}", "/api/auth/register", "/api/auth/login").permitAll()
                     .anyRequest().authenticated()
                 .and()
                 .httpBasic(Customizer.withDefaults())

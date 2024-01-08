@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -73,6 +75,10 @@ public class RentalsService {
         rental.setSurface(parseInt(bodyForm.get("surface")));
         rental.setPrice(parseInt(bodyForm.get("price")));
         rental.setDescription(bodyForm.get("description"));
+
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+        rental.setUpdatedAt(dtf.format(now));
 
         return rentalRepository.save(rental);
     }

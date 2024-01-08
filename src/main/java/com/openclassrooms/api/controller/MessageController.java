@@ -33,7 +33,7 @@ public class MessageController {
      * @param postMessage The request containing message details.
      * @return The posted message.
      */
-    @PostMapping(value = "api/messages")
+    @PostMapping(value = "/api/messages")
     public Message postMessage(@RequestBody PostMessage postMessage) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
